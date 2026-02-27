@@ -5,6 +5,12 @@ from datetime import datetime
 from email.utils import parsedate_to_datetime
 from sqlalchemy.orm import Session
 from . import crud, schemas
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+NEWSAPI_KEY = os.getenv("NEWS_API_KEY")
 
 RSS_FEEDS = {
     "TechCrunch": "https://techcrunch.com/feed/",
@@ -114,3 +120,74 @@ def fetch_and_store_rss_feeds(db: Session):
                 crud.create_article(db, article_data)
         except Exception as e:
             print(f"Error fetching from {source_name}: {str(e)}")
+
+def fetch_and_store_newsapi(db: Session):
+    url = "https://newsapi.org/v2/everything"
+
+
+    params = {
+        "q": "AI OR cybersecurity OR startups OR mobile OR gadgets",
+        "domains": "techcrunch.com,theverge.com,wired.com,engadget.com",
+        "language": "en",
+        "sortBy": "publishedAt",
+        "pageSize": 15,
+        "apiKey": NEWSAPI_KEY
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        data = response.json()
+
+        if data.get("status") != "ok":
+            print("NewsAPI error:", data)
+            return
+
+        for item in data.get("articles", []):
+            source_url = item.get("url")
+
+            if not source_url:
+                continue
+
+            # Avoid duplicates
+            existing = crud.get_article_by_source_url(db, source_url)
+            if existing:
+                continue
+
+            title = item.get("title")
+            if not title:
+                continue
+
+            slug = generate_slug(title)
+            if crud.get_article_by_slug(db, slug):
+                slug = f"{slug}-{datetime.now().strftime('%H%M%S')}"
+
+            summary = item.get("description") or ""
+            content = item.get("content") or summary
+            image_url = item.get("urlToImage") or "https://placehold.co/600x400/2563EB/ffffff?text=GloTech"
+            published_date = datetime.fromisoformat(
+                item.get("publishedAt").replace("Z", "+00:00")
+            ) if item.get("publishedAt") else datetime.now()
+
+            category = determine_category(
+                {"title": title, "summary": summary},
+                "NewsAPI"
+            )
+
+            author = item.get("author") or "NewsAPI"
+
+            article_data = schemas.ArticleCreate(
+                title=title,
+                slug=slug,
+                summary=summary[:200] + "...",
+                content=content,
+                category=category,
+                image_url=image_url,
+                published_date=published_date,
+                source_url=source_url,
+                author=author
+            )
+
+            crud.create_article(db, article_data)
+
+    except Exception as e:
+        print("Error fetching from NewsAPI:", str(e))

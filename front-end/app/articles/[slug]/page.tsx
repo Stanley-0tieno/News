@@ -51,18 +51,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                         <div className="prose max-w-none text-[var(--brand-text)] prose-headings:text-[var(--brand-text)] prose-a:text-[var(--brand-primary)]">
                             <p className="text-xl leading-relaxed mb-6 font-medium text-[var(--brand-muted)]">{article.summary}</p>
 
-                            {/* Dummy Content Expansion */}
-                            <p className="mb-4">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
+                            <div
+                                className="mt-8 mb-8 prose-p:mb-4 prose-p:leading-relaxed prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 prose-a:text-[#3B82F6] hover:prose-a:underline prose-img:rounded-xl prose-img:my-6"
+                                dangerouslySetInnerHTML={{ __html: article.content || '<p>No full content available for this article.</p>' }}
+                            />
+
                             <AdPlaceholder className="my-8 h-[150px]" />
-                            <p className="mb-4">
-                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <h2 className="text-2xl font-bold mt-8 mb-4">The Impact of Innovation</h2>
-                            <p className="mb-4">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                            </p>
                         </div>
                     </div>
 

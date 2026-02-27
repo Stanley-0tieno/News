@@ -19,6 +19,7 @@ async def lifespan(app: FastAPI):
         # Fetch synchronously on startup or send to background task 
         # (Be careful with long startup times, but for demo we just run it directly)
         rss_fetcher.fetch_and_store_rss_feeds(db)
+        rss_fetcher.fetch_and_store_newsapi(db)
     finally:
         db.close()
     yield

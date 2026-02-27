@@ -21,7 +21,7 @@ export default function Navbar() {
                             </li>
                         ))}
                         <li>
-                            <Link href="/dashboard">Dashboard</Link>
+                            <Link href="/">Home</Link>
                         </li>
                     </ul>
                 </div>
@@ -39,8 +39,8 @@ export default function Navbar() {
                         </li>
                     ))}
                     <li>
-                        <Link href="/dashboard" className="hover:text-[var(--brand-primary)] font-medium">
-                            Dashboard
+                        <Link href="/" className="hover:text-[var(--brand-primary)] font-medium">
+                            Home
                         </Link>
                     </li>
                 </ul>

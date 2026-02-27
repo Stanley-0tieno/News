@@ -15,7 +15,7 @@ export default async function Home() {
     <div className="flex flex-col min-h-screen font-sans w-full">
 
       {/* HERO SECTION - Matching Image 1 */}
-      <section className="bg-[#111827] text-white pt-16 pb-0 relative overflow-hidden flex flex-col justify-between min-h-[500px] lg:min-h-[700px]">
+      <section className="bg-white dark:bg-[#111827] text-gray-900 dark:text-white pt-16 pb-0 relative overflow-hidden flex flex-col justify-between min-h-[500px] lg:min-h-[700px]">
         {topStory && (
           <div className="container mx-auto px-6 lg:px-12 relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-8 items-center lg:items-end flex-grow pb-12">
             <div className="lg:w-7/12 pt-8 pb-8 lg:pb-16 flex flex-col justify-center h-full">
@@ -25,13 +25,13 @@ export default async function Home() {
                   {typeof topStory.category === 'string' ? topStory.category : topStory.category?.name || 'News'}
                 </span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.1] mb-8 lg:mb-10 text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.1] mb-8 lg:mb-10 text-gray-900 dark:text-white">
                 {topStory.title}
               </h1>
-              <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl leading-relaxed">
                 {topStory.summary}
               </p>
-              <Link href={`/articles/${topStory.slug}`} className="inline-flex items-center text-white font-bold hover:text-blue-300 transition-colors group text-lg tracking-wide">
+              <Link href={`/articles/${topStory.slug}`} className="inline-flex items-center text-gray-900 dark:text-white font-bold hover:text-[#3B82F6] dark:hover:text-blue-300 transition-colors group text-lg tracking-wide">
                 Read Story <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" />
               </Link>
             </div>
@@ -44,7 +44,7 @@ export default async function Home() {
                 className="max-h-[400px] lg:max-h-[85%] object-cover object-center lg:object-right rounded-t-3xl lg:rounded-none w-full lg:w-auto shadow-2xl lg:shadow-none"
               />
               {/* Overlay gradient to blend bottom edge if needed */}
-              <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#111827] to-transparent lg:hidden"></div>
+              <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white dark:from-[#111827] to-transparent lg:hidden"></div>
             </div>
           </div>
         )}
@@ -56,7 +56,7 @@ export default async function Home() {
               <Link href={`/articles/${article.slug}`} key={article.id || article.slug} className="flex gap-4 items-center group cursor-pointer">
                 <img src={article.image_url || article.imageUrl} alt={article.title} className="w-20 h-20 object-cover rounded shadow-md group-hover:shadow-lg transition-all" />
                 <div className="flex-1">
-                  <h4 className="text-[15px] font-bold text-white leading-tight line-clamp-2 group-hover:text-[#3B82F6] transition-colors duration-200 mb-2">
+                  <h4 className="text-[15px] font-bold text-gray-900 dark:text-white leading-tight line-clamp-2 group-hover:text-[#3B82F6] transition-colors duration-200 mb-2">
                     {article.title}
                   </h4>
                   <div className="flex flex-wrap gap-2 items-center text-[11px] font-bold">

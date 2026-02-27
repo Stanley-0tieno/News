@@ -20,6 +20,9 @@ export default function Navbar() {
                                 <Link href={`/category/${category.slug}`}>{category.name}</Link>
                             </li>
                         ))}
+                        <li>
+                            <Link href="/dashboard">Dashboard</Link>
+                        </li>
                     </ul>
                 </div>
                 <Link href="/" className="btn btn-ghost text-xl font-bold text-[var(--brand-primary)]">
@@ -35,6 +38,11 @@ export default function Navbar() {
                             </Link>
                         </li>
                     ))}
+                    <li>
+                        <Link href="/dashboard" className="hover:text-[var(--brand-primary)] font-medium">
+                            Dashboard
+                        </Link>
+                    </li>
                 </ul>
             </div>
             <div className="navbar-end gap-2">

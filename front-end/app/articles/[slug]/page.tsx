@@ -2,6 +2,7 @@ import { ARTICLES, FEATURED_ARTICLE } from "../../lib/dummy-data";
 import AdPlaceholder from "../../components/AdPlaceholder";
 import CategoryBadge from "../../components/CategoryBadge";
 import ArticleCard from "../../components/ArticleCard";
+import RelatedArticles from "../../components/RelatedArticles";
 
 interface ArticlePageProps {
     params: Promise<{
@@ -68,16 +69,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     </div>
 
                     {/* Related Articles */}
-                    {relatedArticles.length > 0 && (
-                        <div className="mt-16 border-t border-[var(--brand-border)] pt-8">
-                            <h3 className="text-2xl font-bold mb-6 text-[var(--brand-text)]">Related Read</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                {relatedArticles.map(a => (
-                                    <ArticleCard key={a.id} article={a} />
-                                ))}
-                            </div>
-                        </div>
-                    )}
+                    <RelatedArticles articles={relatedArticles} />
                 </div>
 
                 {/* Sidebar */}

@@ -12,7 +12,7 @@ export default function HeroCard({ article }: { article: Article }) {
                 {/* We use standard img element primarily because remote images require next.config.ts setup.
             We'll use unoptimized or regular img tags for dummy placeholders to ease setup. */}
                 <img
-                    src={article.imageUrl}
+                    src={article.image_url || article.imageUrl}
                     alt={article.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

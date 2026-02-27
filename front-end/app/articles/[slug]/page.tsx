@@ -1,4 +1,4 @@
-import { ARTICLES, FEATURED_ARTICLE } from "../../lib/dummy-data";
+import { fetchArticleBySlug, fetchRelatedArticles } from "../../lib/api";
 import AdPlaceholder from "../../components/AdPlaceholder";
 import CategoryBadge from "../../components/CategoryBadge";
 import ArticleCard from "../../components/ArticleCard";
@@ -13,15 +13,13 @@ interface ArticlePageProps {
 export default async function ArticlePage({ params }: ArticlePageProps) {
     const { slug } = await params;
 
-    // Find article in general articles or featured
-    const allArticles = [...ARTICLES, FEATURED_ARTICLE];
-    const article = allArticles.find((a) => a.slug === slug);
+    const article = await fetchArticleBySlug(slug);
 
     if (!article) {
         return <div className="p-8 text-center text-xl font-semibold text-[var(--brand-text)]">Article not found</div>;
     }
 
-    const relatedArticles = ARTICLES.filter((a) => a.category.id === article.category.id && a.id !== article.id).slice(0, 3);
+    const relatedArticles = await fetchRelatedArticles(slug);
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -39,13 +37,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                         <div className="flex items-center gap-3 text-[var(--brand-muted)] text-sm mb-8">
                             <span className="font-semibold">{article.author}</span>
                             <span>•</span>
-                            <time dateTime={article.publishedAt}>
-                                {new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                            <time dateTime={article.published_date || article.publishedAt || new Date().toISOString()}>
+                                {new Date(article.published_date || article.publishedAt || new Date()).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                             </time>
                         </div>
 
                         <img
-                            src={article.imageUrl}
+                            src={article.image_url || article.imageUrl}
                             alt={article.title}
                             className="w-full rounded-2xl mb-10 object-cover aspect-video"
                         />

@@ -8,7 +8,7 @@ export default function ArticleCard({ article, compact = false }: { article: Art
             {!compact && (
                 <figure className="aspect-video relative overflow-hidden">
                     <img
-                        src={article.imageUrl}
+                        src={article.image_url || article.imageUrl}
                         alt={article.title}
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
@@ -19,8 +19,8 @@ export default function ArticleCard({ article, compact = false }: { article: Art
                 <div className="flex items-center gap-2 mb-2 text-xs text-[var(--brand-muted)]">
                     <CategoryBadge category={article.category} />
                     <span>•</span>
-                    <time dateTime={article.publishedAt}>
-                        {new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    <time dateTime={article.published_date || article.publishedAt || new Date().toISOString()}>
+                        {new Date(article.published_date || article.publishedAt || new Date()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </time>
                 </div>
 

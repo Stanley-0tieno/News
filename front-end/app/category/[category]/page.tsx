@@ -1,6 +1,7 @@
-import { ARTICLES } from "../../lib/dummy-data";
+import { fetchCategoryArticles } from "../../lib/api";
 import ArticleCard from "../../components/ArticleCard";
 import AdPlaceholder from "../../components/AdPlaceholder";
+import { Article } from "../../lib/dummy-data";
 
 interface CategoryPageProps {
     params: Promise<{
@@ -12,7 +13,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     const { category } = await params;
 
     // Simulate fetching articles by category
-    const categoryArticles = ARTICLES.filter((a) => a.category.slug === category);
+    const categoryArticles = await fetchCategoryArticles(category);
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -24,7 +25,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <div className="lg:w-3/4">
                     {categoryArticles.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {categoryArticles.map((article) => (
+                            {categoryArticles.map((article: Article) => (
                                 <ArticleCard key={article.id} article={article} />
                             ))}
                         </div>

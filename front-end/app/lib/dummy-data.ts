@@ -7,13 +7,15 @@ export type Category = {
 };
 
 export type Article = {
-    id: string;
+    id: string | number;
     title: string;
     summary: string;
     content: string;
-    imageUrl: string;
-    category: Category;
-    publishedAt: string;
+    imageUrl?: string;
+    image_url?: string;
+    category: Category | string;
+    publishedAt?: string;
+    published_date?: string;
     slug: string;
     author: string;
 };

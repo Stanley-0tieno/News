@@ -7,7 +7,7 @@ export default function DashboardArticleCard({ article }: { article: Article }) 
         <div className="bg-[var(--brand-card)] rounded-2xl p-6 border border-[var(--brand-border)] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full hover:-translate-y-1">
             <div className="overflow-hidden rounded-xl mb-6 aspect-video w-full bg-[var(--brand-bg)]">
                 <img
-                    src={article.imageUrl}
+                    src={article.image_url || article.imageUrl}
                     alt={article.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
@@ -19,7 +19,7 @@ export default function DashboardArticleCard({ article }: { article: Article }) 
                     Spotlight
                 </span>
                 <span className="text-[var(--brand-muted)] text-xs">
-                    {new Date(article.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    {new Date(article.published_date || article.publishedAt || new Date()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                 </span>
             </div>
 

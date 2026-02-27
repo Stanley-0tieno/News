@@ -6,12 +6,29 @@ import { Send } from "lucide-react";
 export default function ContactPage() {
     const [status, setStatus] = useState<"idle" | "success">("idle");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setStatus("success");
-        setTimeout(() => setStatus("idle"), 3000);
-        // form reset handled by form element naturally if we wanted, but not strictly needed for dummy
-        (e.target as HTMLFormElement).reset();
+        const form = e.target as HTMLFormElement;
+        const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+        const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+        const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
+
+        try {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+            const res = await fetch(`${API_URL}/contact`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, message })
+            });
+
+            if (res.ok) {
+                setStatus("success");
+                setTimeout(() => setStatus("idle"), 3000);
+                form.reset();
+            }
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (
@@ -30,6 +47,7 @@ export default function ContactPage() {
                         </label>
                         <input
                             type="text"
+                            name="name"
                             placeholder="Your Name"
                             className="input input-bordered bg-[var(--brand-bg)] text-[var(--brand-text)] w-full"
                             required
@@ -42,6 +60,7 @@ export default function ContactPage() {
                         </label>
                         <input
                             type="email"
+                            name="email"
                             placeholder="Your Email Address"
                             className="input input-bordered bg-[var(--brand-bg)] text-[var(--brand-text)] w-full"
                             required
@@ -53,6 +72,7 @@ export default function ContactPage() {
                             <span className="label-text text-[var(--brand-text)] font-semibold">Message</span>
                         </label>
                         <textarea
+                            name="message"
                             className="textarea textarea-bordered h-32 bg-[var(--brand-bg)] text-[var(--brand-text)] w-full"
                             placeholder="Your Message..."
                             required

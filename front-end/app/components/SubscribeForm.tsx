@@ -7,13 +7,24 @@ export default function SubscribeForm() {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "success">("idle");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (email) {
-            // Simulate API call for subscription and push notification setup
-            setStatus("success");
-            setTimeout(() => setStatus("idle"), 3000);
-            setEmail("");
+            try {
+                const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+                const res = await fetch(`${API_URL}/subscriptions`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                if (res.ok) {
+                    setStatus("success");
+                    setTimeout(() => setStatus("idle"), 3000);
+                    setEmail("");
+                }
+            } catch (err) {
+                console.error(err);
+            }
         }
     };
 

@@ -12,7 +12,7 @@ export default function SubscribeForm() {
         if (email) {
             try {
                 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-                const res = await fetch(`${API_URL}/subscriptions`, {
+                const res = await fetch(`${API_URL}/subscriptions/subscribe`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email })

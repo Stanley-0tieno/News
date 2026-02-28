@@ -9,6 +9,12 @@ router = APIRouter(
     tags=["subscriptions"]
 )
 
-@router.post("/", response_model=schemas.SubscriberCreate)
-def submit_subscription(subscription: schemas.SubscriberCreate, db: Session = Depends(get_db)):
-    return crud.create_subscriber(db, subscription)
+@router.post("/subscribe")
+def subscribe(subscription: schemas.SubscriptionRequest, db: Session = Depends(get_db)):
+    crud.create_or_update_subscription(db, subscription)
+    return {"message": "Successfully subscribed"}
+
+@router.post("/unsubscribe")
+def unsubscribe(subscription: schemas.SubscriptionRequest, db: Session = Depends(get_db)):
+    crud.unsubscribe_user(db, subscription.email)
+    return {"message": "Successfully unsubscribed"}

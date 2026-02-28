@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 class ArticleBase(BaseModel):
     title: str
@@ -11,6 +11,7 @@ class ArticleBase(BaseModel):
     published_date: Optional[datetime] = None
     source_url: Optional[str] = None
     author: Optional[str] = None
+    is_breaking: Optional[bool] = False
 
 class ArticleCreate(ArticleBase):
     slug: str
@@ -27,5 +28,18 @@ class ContactMessageCreate(BaseModel):
     email: EmailStr
     message: str
 
-class SubscriberCreate(BaseModel):
+class SubscriptionRequest(BaseModel):
     email: EmailStr
+
+class SubscriptionResponse(BaseModel):
+    id: str
+    email: EmailStr
+    topics: Optional[List[str]] = None
+    email_enabled: bool
+    push_enabled: bool
+    device_token: Optional[str] = None
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True

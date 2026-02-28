@@ -22,6 +22,11 @@ async def lifespan(app: FastAPI):
         rss_fetcher.fetch_and_store_newsapi(db)
     finally:
         db.close()
+        
+    # Start APScheduler
+    from .scheduler import start_scheduler
+    start_scheduler()
+    
     yield
     # Shutdown logic if any
 

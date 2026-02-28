@@ -42,11 +42,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                             </time>
                         </div>
 
-                        <img
-                            src={article.image_url || article.imageUrl}
-                            alt={article.title}
-                            className="w-full rounded-2xl mb-10 object-cover aspect-video"
-                        />
 
                         <div className="prose max-w-none text-[var(--brand-text)] prose-headings:text-[var(--brand-text)] prose-a:text-[var(--brand-primary)]">
                             <p className="text-xl leading-relaxed mb-6 font-medium text-[var(--brand-muted)]">{article.summary}</p>

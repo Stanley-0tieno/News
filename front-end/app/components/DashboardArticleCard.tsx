@@ -14,7 +14,7 @@ export default function DashboardArticleCard({ article }: { article: Article }) 
             </div>
 
             <div className="flex gap-4 items-center mb-4 text-sm font-medium">
-                <span className="flex items-center text-[#ea580c] bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 rounded-full">
+                <span className="flex items-center text-[#3B82F6] bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full">
                     <Lightbulb className="w-3.5 h-3.5 mr-1" />
                     Spotlight
                 </span>
@@ -33,7 +33,7 @@ export default function DashboardArticleCard({ article }: { article: Article }) 
 
             <Link
                 href={`/articles/${article.slug}`}
-                className="text-[#ea580c] font-bold text-[15px] inline-flex items-center hover:text-[#c2410c] transition-colors group mt-auto"
+                className="text-[#3B82F6] font-bold text-[15px] inline-flex items-center hover:text-blue-600 transition-colors group mt-auto"
             >
                 Learn More <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1.5 transition-transform" />
             </Link>

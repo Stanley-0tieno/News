@@ -25,8 +25,8 @@ export default function Navbar() {
                         </li>
                     </ul>
                 </div>
-                <Link href="/" className="btn btn-ghost text-xl font-bold text-[var(--brand-primary)]">
-                    {SITE_NAME}
+                <Link href="/" className="btn btn-ghost hover:bg-transparent px-2">
+                    <img src="/Gtech1.png" alt="Gtech Logo" className="h-18 w-auto object-contain" />
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">

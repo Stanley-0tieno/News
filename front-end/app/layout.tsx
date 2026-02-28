@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GloTech - Modern Tech News",
+  title: "Gtech - Modern Tech News",
   description: "Your daily source for tech, AI, and startup news.",
 };
 
